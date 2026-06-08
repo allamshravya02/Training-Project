@@ -81,7 +81,7 @@ th,td{
 
 .nav-links a{
     color:white;
-    text-decoration:none;
+    text-decoration:underline;
     font-size:18px;
     transition:0.3s;
 }
