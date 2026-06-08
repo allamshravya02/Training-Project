@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <a href="index.html">StudentMS</a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      
+    </ul>
+
+    <div class="nav-btn" id="authBtn"></div>
+</nav>
+
+<!-- Page Content -->
+
+<script>
+const authBtn = document.getElementById("authBtn");
+
+if(localStorage.getItem("loggedIn") === "true"){
+    authBtn.innerHTML =
+    `<a href="logout.html" class="login-btn">Logout</a>`;
+}else{
+    authBtn.innerHTML =
+    `<a href="login.html" class="login-btn">Login</a>`;
+}
+</script>
+    <div class="container">
+        <h1>Student Management System</h1>
+        <p>Welcome to our Student Management System. Here you can manage your students, add new students, update student information, and delete students.</p>
+        <a href="dashboard.html" class="btn">Dashboard</a>
+        <a href="register.html" class="btn">Register</a>
+        <a href="login.html" class="btn">Login</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">
+        <a href="index.html">StudentMS</a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="contact.html">Contact</a></li>
+     
+    </ul>
+
+    <div class="nav-btn" id="authBtn"></div>
+</nav>
+
+<!-- Page Content -->
+
+<script>
+const authBtn = document.getElementById("authBtn");
+
+if(localStorage.getItem("loggedIn") === "true"){
+    authBtn.innerHTML =
+    `<a href="logout.html" class="login-btn">Logout</a>`;
+}else{
+    authBtn.innerHTML =
+    `<a href="login.html" class="login-btn">Login</a>`;
+}
+</script>
+<div class="container">
+    <h1>Dashboard</h1>
+    <h2>Welcome to the Dashboard of Student Management System</h2>
+    <p>Here you can add, view, and manage students.</p>
+    <a href="addStudent.html" class="btn">Add Student</a>
+    <a href="viewStudents.html" class="btn">View Students</a>
+    <a href="logout.html" class="btn">Logout</a>
+</div>
+
+</body>
+</html>

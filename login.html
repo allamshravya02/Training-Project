@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="logo">
+        <a href="index.html">StudentMS</a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      
+    </ul>
+
+    <div class="nav-btn" id="authBtn"></div>
+</nav>
+
+<!-- Page Content -->
+
+<script>
+const authBtn = document.getElementById("authBtn");
+
+if(localStorage.getItem("loggedIn") === "true"){
+    authBtn.innerHTML =
+    `<a href="logout.html" class="login-btn">Logout</a>`;
+}else{
+    authBtn.innerHTML =
+    `<a href="login.html" class="login-btn">Login</a>`;
+}
+</script>
+
+<div class="container">
+    <h2>Login</h2>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let savedUser = localStorage.getItem("username");
+    let savedPass = localStorage.getItem("password");
+
+    if(username === savedUser && password === savedPass){
+        localStorage.setItem("loggedIn", "true");
+        window.location.href="dashboard.html";
+    }else{
+        alert("Invalid Credentials");
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <nav class="navbar">
+    <div class="logo">
+        <a href="index.html">StudentMS</a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-btn" id="authBtn"></div>
+</nav>
+
+<!-- Page Content -->
+
+<script>
+const authBtn = document.getElementById("authBtn");
+
+if(localStorage.getItem("loggedIn") === "true"){
+    authBtn.innerHTML =
+    `<a href="logout.html" class="login-btn">Logout</a>`;
+}else{
+    authBtn.innerHTML =
+    `<a href="login.html" class="login-btn">Login</a>`;
+}
+</script>
+<div class="container">
+    <h2>Student Records</h2>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll</th>
+                <th>Course</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="studentTable"></tbody>
+    </table>
+
+    <a href="addStudent.html" class="btn">Add Student</a>
+</div>
+
+<script>
+let students =
+JSON.parse(localStorage.getItem("students")) || [];
+
+let table = document.getElementById("studentTable");
+
+students.forEach((student,index)=>{
+
+table.innerHTML += `
+<tr>
+<td>${student.name}</td>
+<td>${student.roll}</td>
+<td>${student.course}</td>
+
+<td>
+<button onclick="editStudent(${index})">
+Edit
+</button>
+
+<button onclick="deleteStudent(${index})">
+Delete
+</button>
+</td>
+</tr>
+`;
+});
+
+function deleteStudent(index){
+
+students.splice(index,1);
+
+localStorage.setItem(
+"students",
+JSON.stringify(students)
+);
+
+location.reload();
+}
+
+function editStudent(index){
+localStorage.setItem("editIndex",index);
+window.location.href="edit.html";
+}
+</script>
+
+</body>
+</html>

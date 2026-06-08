@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout</title>
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">
+        <a href="index.html">StudentMS</a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="contact.html">Contact</a></li>
+     
+    </ul>
+
+    <div class="nav-btn" id="authBtn"></div>
+</nav>
+
+<!-- Page Content -->
+
+<script>
+const authBtn = document.getElementById("authBtn");
+
+if(localStorage.getItem("loggedIn") === "true"){
+    authBtn.innerHTML =
+    `<a href="logout.html" class="login-btn">Logout</a>`;
+}else{
+    authBtn.innerHTML =
+    `<a href="login.html" class="login-btn">Login</a>`;
+}
+</script>
+<script>
+localStorage.removeItem("loggedIn");
+
+alert("Logged Out Successfully");
+
+window.location.href="login.html";
+</script>
+
+</body>
+</html>
