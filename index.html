@@ -20,9 +20,6 @@
 
     <div class="nav-btn" id="authBtn"></div>
 </nav>
-
-<!-- Page Content -->
-
 <script>
 const authBtn = document.getElementById("authBtn");
 
@@ -37,9 +34,14 @@ if(localStorage.getItem("loggedIn") === "true"){
     <div class="container">
         <h1>Student Management System</h1>
         <p>Welcome to our Student Management System. Here you can manage your students, add new students, update student information, and delete students.</p>
-        <a href="dashboard.html" class="btn">Dashboard</a>
+        <p>Please click on the "Register" button for Login credintials to manage the Student Details</p>
+        <div class="button-container">
         <a href="register.html" class="btn">Register</a>
+        </div>
+        <div class="button-container">
+        <a href="dashboard.html" class="btn">Dashboard</a>
         <a href="login.html" class="btn">Login</a>
+        </div>
     </div>
 </body>
 </html>
