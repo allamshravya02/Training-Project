@@ -35,25 +35,62 @@ if(localStorage.getItem("loggedIn") === "true"){
 <div class="container">
     <h2>Login</h2>
 
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    
+    <input type="text"
+       id="username"
+       placeholder="Username or Email">
+    <input type="password"
+       id="password"
+       placeholder="Password">
     <button onclick="login()">Login</button>
+    <p>Don't have an account, please register!</p>
+    <a href="register.html"><button>Register</button></a>
 </div>
 
 <script>
 function login() {
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
 
     let savedUser = localStorage.getItem("username");
     let savedPass = localStorage.getItem("password");
+    let usernamePattern = /^[A-Za-z0-9_]+$/;
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    if(username === ""){
+        alert("Username or Email is required");
+        return;
+    }
+
+    if(
+        !usernamePattern.test(username) &&
+        !emailPattern.test(username)
+    ){
+        alert("Enter a valid Username or Email");
+        return;
+    }
+
+    if(password === ""){
+        alert("Password is required");
+        return;
+    }
+
+    if(password.length < 6){
+        alert("Password must be at least 6 characters");
+        return;
+    }
     if(username === savedUser && password === savedPass){
-        localStorage.setItem("loggedIn", "true");
-        window.location.href="dashboard.html";
+
+        localStorage.setItem("loggedIn","true");
+
+        alert("Login Successful");
+
+        window.location.href = "dashboard.html";
+
     }else{
-        alert("Invalid Credentials");
+
+        alert("Invalid Username/Email or Password");
+
     }
 }
 </script>

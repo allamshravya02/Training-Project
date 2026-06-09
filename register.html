@@ -35,8 +35,12 @@ if(localStorage.getItem("loggedIn") === "true"){
 <div class="container">
     <h2>User Registration</h2>
 
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
+    <input type="text"
+       id="username"
+       placeholder="Username or Email">
+    <input type="password"
+       id="password"
+       placeholder="Password">
     
     <button onclick="register()">Register</button>
 
@@ -47,13 +51,45 @@ if(localStorage.getItem("loggedIn") === "true"){
 
 <script>
 function register() {
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
 
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+
+    let usernamePattern = /^[A-Za-z0-9_]+$/;
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    let savedUser = localStorage.getItem("username");
+
+    if(username === ""){
+        alert("Username or Email is required");
+        return;
+    }
+
+    if(
+        !usernamePattern.test(username) &&
+        !emailPattern.test(username)
+    ){
+        alert("Enter a valid Username or Email");
+        return;
+    }
+
+    if(password === ""){
+        alert("Password is required");
+        return;
+    }
+    if(password.length < 6){
+        alert("Password must be at least 6 characters");
+        return;
+    }
+    if(username === savedUser){
+        alert("User already exists");
+        return;
+    }
     localStorage.setItem("username", username);
     localStorage.setItem("password", password);
 
     alert("Registration Successful");
+
     window.location.href = "login.html";
 }
 </script>
