@@ -43,26 +43,42 @@ if(localStorage.getItem("loggedIn") === "true"){
 </div>
 
 <script>
-function addStudent() {
+async function addStudent(){
 
-    let students =
-        JSON.parse(localStorage.getItem("students")) || [];
+const student = {
 
-    let student = {
-        name: document.getElementById("name").value,
-        roll: document.getElementById("roll").value,
-        course: document.getElementById("course").value
-    };
+name:
+document.getElementById("name").value,
 
-    students.push(student);
+rollno:
+document.getElementById("roll").value,
 
-    localStorage.setItem(
-        "students",
-        JSON.stringify(students)
-    );
+course:
+document.getElementById("course").value
+};
 
-    alert("Student Added");
-    window.location.href="viewStudents.html";
+const response =
+await fetch(
+"http://localhost:8080/students",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(student)
+});
+
+if(response.ok){
+    alert("Student Added Successfully");
+
+window.location.href=
+"viewStudents.html";
+
+}else{
+
+alert("Failed");
+
+}
 }
 </script>
 

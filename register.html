@@ -1,23 +1,25 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>Register</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
+
+<nav class="navbar">
     <div class="logo">
         <a href="index.html">StudentMS</a>
     </div>
 
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    
-    </ul>
+<ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="contact.html">Contact</a></li>
+</ul>
 
-    <div class="nav-btn" id="authBtn"></div>
+<div class="nav-btn" id="authBtn"></div>
+
 </nav>
 
 <script>
@@ -33,65 +35,98 @@ if(localStorage.getItem("loggedIn") === "true"){
 </script>
 
 <div class="container">
-    <h2>User Registration</h2>
 
-    <input type="text"
-       id="username"
-       placeholder="Username or Email">
-    <input type="password"
-       id="password"
-       placeholder="Password">
-    
-    <button onclick="register()">Register</button>
+<h2>User Registration</h2>
 
-    <p>Already have an account?
-        <a href="login.html">Login</a>
-    </p>
+<input
+    type="text"
+    id="username"
+    placeholder="Username"
+    required>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Password"
+    required>
+
+<input
+    type="password"
+    id="confirmPassword"
+    placeholder="Confirm Password"
+    required>
+
+<button onclick="register()">
+    Register
+</button>
+
+<p>
+    Already have an account?
+    <a href="login.html">Login</a>
+</p>
 </div>
 
 <script>
-function register() {
 
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value.trim();
+async function register(){
 
-    let usernamePattern = /^[A-Za-z0-9_]+$/;
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let username =
+    document.getElementById("username").value;
 
-    let savedUser = localStorage.getItem("username");
+    let password =
+    document.getElementById("password").value;
 
-    if(username === ""){
-        alert("Username or Email is required");
-        return;
-    }
+    let confirmPassword =
+    document.getElementById("confirmPassword").value;
 
     if(
-        !usernamePattern.test(username) &&
-        !emailPattern.test(username)
+        username.trim()==="" ||
+        password.trim()==="" ||
+        confirmPassword.trim()===""
     ){
-        alert("Enter a valid Username or Email");
+        alert("All fields are required");
         return;
     }
 
-    if(password === ""){
-        alert("Password is required");
-        return;
-    }
-    if(password.length < 6){
-        alert("Password must be at least 6 characters");
-        return;
-    }
-    if(username === savedUser){
-        alert("User already exists");
-        return;
-    }
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
+    if(password !== confirmPassword){
 
-    alert("Registration Successful");
+        alert("Passwords do not match");
+        return;
+    }
 
-    window.location.href = "login.html";
+    const response =
+    await fetch(
+        "http://localhost:8080/users/register",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                username,
+                password
+            })
+        }
+    );
+
+    const result =
+    await response.text();
+
+    if(result === "SUCCESS"){
+
+        alert("Registration Successful");
+
+        window.location.href =
+        "login.html";
+    }
+    else{
+
+        alert(
+        "Registration Failed. Username already exists."
+        );
+    }
 }
+
 </script>
 
 </body>

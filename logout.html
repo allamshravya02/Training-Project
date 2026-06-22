@@ -19,9 +19,15 @@ if(localStorage.getItem("loggedIn") === "true"){
 <script>
 localStorage.removeItem("loggedIn");
 
-alert("Logged Out Successfully");
+localStorage.removeItem("username");
 
-window.location.href="login.html";
+alert(
+"Logged Out Successfully"
+);
+
+window.location.href =
+"login.html";
+
 </script>
 
 </body>

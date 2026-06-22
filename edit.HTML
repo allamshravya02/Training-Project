@@ -45,42 +45,65 @@ if(localStorage.getItem("loggedIn") === "true"){
 </div>
 
 <script>
-let students =
-JSON.parse(localStorage.getItem("students"));
-
-let index =
-localStorage.getItem("editIndex");
-
-document.getElementById("name").value =
-students[index].name;
-
-document.getElementById("roll").value =
-students[index].roll;
-
-document.getElementById("course").value =
-students[index].course;
-
-function updateStudent(){
-
-students[index].name =
-document.getElementById("name").value;
-
-students[index].roll =
-document.getElementById("roll").value;
-
-students[index].course =
-document.getElementById("course").value;
-
-localStorage.setItem(
-"students",
-JSON.stringify(students)
+const id =
+localStorage.getItem(
+"studentId"
 );
 
-alert("Updated Successfully");
+async function loadStudent(){
 
-window.location.href =
+const response =
+await fetch(
+`http://localhost:8080/students/${id}`
+);
+
+const student =
+await response.json();
+
+document.getElementById("name").value =
+student.name;
+
+document.getElementById("roll").value =
+student.rollno;
+
+document.getElementById("course").value =
+student.course;
+}
+
+async function updateStudent(){
+
+const student = {
+
+name:
+document.getElementById("name").value,
+
+rollno:
+document.getElementById("roll").value,
+
+course:
+document.getElementById("course").value
+};
+
+await fetch(
+`http://localhost:8080/students/${id}`,
+{
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(student)
+}
+);
+
+alert("Updated");
+
+window.location.href=
 "viewStudents.html";
 }
+
+loadStudent();
 </script>
 
 </body>
